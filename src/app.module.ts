@@ -1,10 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AuthModule } from './modules/auth/auth.module';
+import { CampaignsModule } from './modules/campaigns/campaigns.module';
+import { CharactersModule } from './modules/characters/characters.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MONGODB_URI } from './config/envs';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    MongooseModule.forRoot(MONGODB_URI),
+    AuthModule,
+    CampaignsModule,
+    CharactersModule,
+  ],
+  providers: [HealthModule],
 })
 export class AppModule {}
