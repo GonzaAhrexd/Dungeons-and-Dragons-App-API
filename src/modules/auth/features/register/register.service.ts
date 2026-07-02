@@ -20,8 +20,8 @@ export class RegisterService {
         sub: user.id,
         username: user.username,
       });
-      const { username } = user.toObject();
-      return { token, username };
+      const { username, id } = user.toObject();
+      return { id, token, username };
     } catch (error: unknown) {
       const mongoError = error as MongoServerErrorLike;
       if (mongoError.code === 11000) {

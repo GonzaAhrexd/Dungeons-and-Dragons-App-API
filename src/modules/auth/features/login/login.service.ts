@@ -31,6 +31,6 @@ export class LoginService {
       username: user.username,
     });
 
-    return { username: user.username, access_token: token };
+    return { id: user.id, username: user.username, access_token: token };
   }
 }
