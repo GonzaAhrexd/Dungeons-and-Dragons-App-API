@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { User, UserSchema } from './schema/user.schema';
 import { RegisterController, RegisterService } from './features/register';
+import { LoginController, LoginService } from './features/login';
 import { JWT_SECRET } from '../../config/envs';
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { JWT_SECRET } from '../../config/envs';
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  controllers: [RegisterController],
-  providers: [RegisterService],
+  controllers: [RegisterController, LoginController],
+  providers: [RegisterService, LoginService],
 })
 export class AuthModule {}
