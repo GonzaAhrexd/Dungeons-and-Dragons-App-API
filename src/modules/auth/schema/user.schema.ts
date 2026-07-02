@@ -10,9 +10,6 @@ export class User {
   username!: string;
   @Prop({ required: true, trim: true })
   password!: string;
-
-  @Prop({ trim: true })
-  campaigns!: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

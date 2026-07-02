@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
+import { JwtAuthGuard } from './modules/campaigns/features/shared/campaign-auth.guard';
 
 mongoose.connection.on('connected', () => {
   console.log('✅ MongoDB conectado');
@@ -10,6 +11,7 @@ mongoose.connection.on('connected', () => {
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalGuards(app.get(JwtAuthGuard));
 
   await app.listen(process.env.PORT ?? 3000);
 }
