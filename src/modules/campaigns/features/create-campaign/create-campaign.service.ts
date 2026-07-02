@@ -27,10 +27,10 @@ export class CreateCampaignService {
       name: dto.name,
       gamemaster: dto.gamemaster,
     });
-    const { id, name, gamemaster, players, createdAt, updatedAt } =
+    const { _id, name, gamemaster, players, createdAt, updatedAt } =
       campaign.toObject();
     return {
-      id,
+      id: _id.toString(),
       name,
       gamemaster: gamemaster.toString(),
       players,

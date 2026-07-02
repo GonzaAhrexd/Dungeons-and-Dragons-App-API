@@ -4,6 +4,7 @@ import {
   CampaignController,
   CreateCampaignService,
 } from './features/create-campaign';
+import { AddUserController, AddUserService } from './features/add-user';
 import {
   Campaign,
   CampaignSchema,
@@ -17,7 +18,7 @@ import { User, UserSchema } from '@/modules/auth/schema/user.schema';
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  controllers: [CampaignController],
-  providers: [CreateCampaignService],
+  controllers: [CampaignController, AddUserController],
+  providers: [CreateCampaignService, AddUserService],
 })
 export class CampaignsModule {}
