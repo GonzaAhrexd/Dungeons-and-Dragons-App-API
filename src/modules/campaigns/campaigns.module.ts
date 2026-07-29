@@ -22,7 +22,7 @@ import {
   GetCampaignsController,
   GetCampaignsService,
 } from './features/get-campaigns';
-import { CampaignAuthGuard } from './features/shared/campaign-auth.guard';
+import { JwtAuthGuard } from './features/shared/campaign-auth.guard';
 import {
   Campaign,
   CampaignSchema,
@@ -56,7 +56,7 @@ import { JWT_SECRET } from '@/config/envs';
     EditCampaignNameService,
     DeleteCampaignService,
     GetCampaignsService,
-    CampaignAuthGuard,
+    JwtAuthGuard,
   ],
 })
 export class CampaignsModule {}
