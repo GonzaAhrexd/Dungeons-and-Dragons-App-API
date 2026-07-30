@@ -12,6 +12,7 @@ mongoose.connection.on('connected', () => {
 
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalGuards(app.get(JwtAuthGuard));
 
@@ -23,7 +24,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
 }

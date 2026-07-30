@@ -24,7 +24,7 @@ export class JwtAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<RequestWithUserId>();
     const path = (request.originalUrl ?? request.url ?? '').split('?')[0];
 
-    if (path === '/auth/login' || path === '/auth/register') {
+    if (path === '/api/auth/login' || path === '/api/auth/register') {
       return true;
     }
     const authorization = request.headers.authorization;
