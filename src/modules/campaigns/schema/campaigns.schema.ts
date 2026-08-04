@@ -8,6 +8,8 @@ export type CampaignDocument = HydratedDocument<Campaign & Document>;
 export class Campaign {
   @Prop({ required: true, trim: true })
   name!: string;
+  @Prop({ trim: true })
+  description!: string;
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   gamemaster!: Types.ObjectId;
 

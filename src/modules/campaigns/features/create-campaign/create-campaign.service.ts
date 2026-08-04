@@ -25,13 +25,22 @@ export class CreateCampaignService {
 
     const campaign = await this.campaignModel.create({
       name: dto.name,
+      description: dto.description,
       gamemaster: dto.gamemaster,
     });
-    const { _id, name, gamemaster, players, createdAt, updatedAt } =
-      campaign.toObject();
+    const {
+      _id,
+      name,
+      description,
+      gamemaster,
+      players,
+      createdAt,
+      updatedAt,
+    } = campaign.toObject();
     return {
       id: _id.toString(),
       name,
+      description,
       gamemaster: gamemaster.toString(),
       players,
       createdAt,
