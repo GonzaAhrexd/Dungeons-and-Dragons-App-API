@@ -13,12 +13,16 @@ export class GetCampaignsService {
   async execute(userId: string): Promise<GetCampaignsResponse[]> {
     const [gameMasterCampaigns, playerCampaigns] = await Promise.all([
       this.campaignModel
-        .find({ gamemaster: userId }, { _id: 1 })
-        .lean<{ _id: { toString(): string } }[]>()
+        .find({ gamemaster: userId }, { _id: 1, name: 1, description: 1 })
+        .lean<
+          { _id: { toString(): string }; name: string; description: string }[]
+        >()
         .exec(),
       this.campaignModel
-        .find({ players: userId }, { _id: 1 })
-        .lean<{ _id: { toString(): string } }[]>()
+        .find({ players: userId }, { _id: 1, name: 1, description: 1 })
+        .lean<
+          { _id: { toString(): string }; name: string; description: string }[]
+        >()
         .exec(),
     ]);
 
@@ -27,6 +31,8 @@ export class GetCampaignsService {
     for (const campaign of playerCampaigns) {
       campaignsById.set(campaign._id.toString(), {
         campaignId: campaign._id.toString(),
+        name: campaign.name,
+        description: campaign.description,
         isGameMaster: false,
       });
     }
@@ -34,6 +40,8 @@ export class GetCampaignsService {
     for (const campaign of gameMasterCampaigns) {
       campaignsById.set(campaign._id.toString(), {
         campaignId: campaign._id.toString(),
+        name: campaign.name,
+        description: campaign.description,
         isGameMaster: true,
       });
     }
