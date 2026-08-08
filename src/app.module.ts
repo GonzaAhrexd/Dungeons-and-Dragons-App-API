@@ -7,7 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JWT_SECRET, MONGODB_URI } from './config/envs';
 import { HealthModule } from './modules/health/health.module';
 import { JwtAuthGuard } from './modules/campaigns/features/shared/campaign-auth.guard';
-
+import { InvitationsModule } from './modules/invitations/invitations.module';
 @Module({
   imports: [
     MongooseModule.forRoot(MONGODB_URI),
@@ -18,6 +18,7 @@ import { JwtAuthGuard } from './modules/campaigns/features/shared/campaign-auth.
     AuthModule,
     CampaignsModule,
     CharactersModule,
+    InvitationsModule,
   ],
   providers: [HealthModule, JwtAuthGuard],
 })
