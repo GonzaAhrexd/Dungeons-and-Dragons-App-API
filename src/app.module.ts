@@ -13,7 +13,7 @@ import { JwtAuthGuard } from './modules/campaigns/features/shared/campaign-auth.
     MongooseModule.forRoot(MONGODB_URI),
     JwtModule.register({
       secret: JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '30d' },
     }),
     AuthModule,
     CampaignsModule,
