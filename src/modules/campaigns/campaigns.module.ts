@@ -22,6 +22,10 @@ import {
   GetCampaignsController,
   GetCampaignsService,
 } from './features/get-campaigns';
+import {
+  GetCampaignByIdController,
+  GetCampaignByIdService,
+} from './features/get-campaign-by-id';
 import { JwtAuthGuard } from './features/shared/campaign-auth.guard';
 import {
   Campaign,
@@ -48,6 +52,7 @@ import { JWT_SECRET } from '@/config/envs';
     EditCampaignNameController,
     DeleteCampaignController,
     GetCampaignsController,
+    GetCampaignByIdController,
   ],
   providers: [
     CreateCampaignService,
@@ -56,6 +61,7 @@ import { JWT_SECRET } from '@/config/envs';
     EditCampaignNameService,
     DeleteCampaignService,
     GetCampaignsService,
+    GetCampaignByIdService,
     JwtAuthGuard,
   ],
 })
