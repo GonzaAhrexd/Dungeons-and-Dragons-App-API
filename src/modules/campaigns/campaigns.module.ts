@@ -11,9 +11,9 @@ import {
   RemoveUserService,
 } from './features/remove-user';
 import {
-  EditCampaignNameController,
-  EditCampaignNameService,
-} from './features/edit-name';
+  EditCampaignController,
+  EditCampaignService,
+} from './features/edit-campaign';
 import {
   DeleteCampaignController,
   DeleteCampaignService,
@@ -49,7 +49,7 @@ import { JWT_SECRET } from '@/config/envs';
     CampaignController,
     AddUserController,
     RemoveUserController,
-    EditCampaignNameController,
+    EditCampaignController,
     DeleteCampaignController,
     GetCampaignsController,
     GetCampaignByIdController,
@@ -58,7 +58,7 @@ import { JWT_SECRET } from '@/config/envs';
     CreateCampaignService,
     AddUserService,
     RemoveUserService,
-    EditCampaignNameService,
+    EditCampaignService,
     DeleteCampaignService,
     GetCampaignsService,
     GetCampaignByIdService,
