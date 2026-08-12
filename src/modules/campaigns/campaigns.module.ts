@@ -33,7 +33,10 @@ import {
 } from '@/modules/campaigns/schema/campaigns.schema';
 import { User, UserSchema } from '@/modules/auth/schema/user.schema';
 import { JWT_SECRET } from '@/config/envs';
-
+import {
+  Invitation,
+  InvitationSchema,
+} from '@/modules/invitations/schema/invitations.schema';
 @Module({
   imports: [
     JwtModule.register({
@@ -43,6 +46,7 @@ import { JWT_SECRET } from '@/config/envs';
     MongooseModule.forFeature([
       { name: Campaign.name, schema: CampaignSchema },
       { name: User.name, schema: UserSchema },
+      { name: Invitation.name, schema: InvitationSchema },
     ]),
   ],
   controllers: [
