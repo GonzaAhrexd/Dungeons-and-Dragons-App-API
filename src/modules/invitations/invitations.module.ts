@@ -8,6 +8,8 @@ import {
 import { User, UserSchema } from '@/modules/auth/schema/user.schema';
 import { InvitationsController } from './features/send-invitation/send-invitation.controller';
 import { SendInvitationService } from './features/send-invitation/send-invitation.service';
+import { GetInvitationController } from './features/get-invitations/get-invitation.controller';
+import { GetInvitationService } from './features/get-invitations/get-invitation.service';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { SendInvitationService } from './features/send-invitation/send-invitatio
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  controllers: [InvitationsController],
-  providers: [SendInvitationService],
+  controllers: [InvitationsController, GetInvitationController],
+  providers: [SendInvitationService, GetInvitationService],
 })
 export class InvitationsModule {}

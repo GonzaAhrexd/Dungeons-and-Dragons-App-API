@@ -35,6 +35,10 @@ export class SendInvitationService {
     if (campaign.gamemaster.toString() !== gamemasterId)
       throw new BadRequestException('Only the gamemaster can send invitations');
     if (!invitatedUser) throw new BadRequestException('User not found');
+    if (invitatedUser.id === gamemasterId)
+      throw new BadRequestException(
+        'You cannot send an invitation to yourself',
+      );
 
     const alreadyInvited = await this.invitationModel.exists({
       campaignId: dto.campaignId,
