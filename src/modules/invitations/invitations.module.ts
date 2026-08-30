@@ -10,6 +10,8 @@ import { InvitationsController } from './features/send-invitation/send-invitatio
 import { SendInvitationService } from './features/send-invitation/send-invitation.service';
 import { GetInvitationController } from './features/get-invitations/get-invitation.controller';
 import { GetInvitationService } from './features/get-invitations/get-invitation.service';
+import { AcceptInvitationController } from './features/accept-invitations/accept-invitation.controller';
+import { AcceptInvitationService } from './features/accept-invitations/accept-invitation.service';
 
 @Module({
   imports: [
@@ -19,7 +21,15 @@ import { GetInvitationService } from './features/get-invitations/get-invitation.
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  controllers: [InvitationsController, GetInvitationController],
-  providers: [SendInvitationService, GetInvitationService],
+  controllers: [
+    InvitationsController,
+    GetInvitationController,
+    AcceptInvitationController,
+  ],
+  providers: [
+    SendInvitationService,
+    GetInvitationService,
+    AcceptInvitationService,
+  ],
 })
 export class InvitationsModule {}
