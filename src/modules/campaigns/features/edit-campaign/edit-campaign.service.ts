@@ -23,7 +23,7 @@ export class EditCampaignService {
     const campaign = await this.campaignModel.findByIdAndUpdate(
       id,
       { $set: { name: dto.name, description: dto.description } },
-      { new: true },
+      { returnDocument: 'after' },
     );
 
     if (!campaign) {

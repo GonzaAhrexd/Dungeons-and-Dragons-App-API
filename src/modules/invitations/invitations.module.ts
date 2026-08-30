@@ -6,12 +6,17 @@ import {
   CampaignSchema,
 } from '@/modules/campaigns/schema/campaigns.schema';
 import { User, UserSchema } from '@/modules/auth/schema/user.schema';
-import { InvitationsController } from './features/send-invitation/send-invitation.controller';
-import { SendInvitationService } from './features/send-invitation/send-invitation.service';
-import { GetInvitationController } from './features/get-invitations/get-invitation.controller';
-import { GetInvitationService } from './features/get-invitations/get-invitation.service';
-import { AcceptInvitationController } from './features/accept-invitations/accept-invitation.controller';
-import { AcceptInvitationService } from './features/accept-invitations/accept-invitation.service';
+
+import {
+  AcceptInvitationController,
+  AcceptInvitationService,
+  CancelInvitationController,
+  CancelInvitationService,
+  GetInvitationController,
+  GetInvitationService,
+  InvitationsController,
+  SendInvitationService,
+} from './features';
 
 @Module({
   imports: [
@@ -25,11 +30,13 @@ import { AcceptInvitationService } from './features/accept-invitations/accept-in
     InvitationsController,
     GetInvitationController,
     AcceptInvitationController,
+    CancelInvitationController,
   ],
   providers: [
     SendInvitationService,
     GetInvitationService,
     AcceptInvitationService,
+    CancelInvitationService,
   ],
 })
 export class InvitationsModule {}

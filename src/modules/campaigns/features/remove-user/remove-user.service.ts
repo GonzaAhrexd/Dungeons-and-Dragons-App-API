@@ -30,7 +30,7 @@ export class RemoveUserService {
     const campaign = await this.campaignModel.findByIdAndUpdate(
       dto.campaignId,
       { $pull: { players: dto.playerId } },
-      { new: true },
+      { returnDocument: 'after' },
     );
 
     if (!campaign) {

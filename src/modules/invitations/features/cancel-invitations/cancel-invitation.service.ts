@@ -10,10 +10,10 @@ import {
   Invitation,
   InvitationDocument,
 } from '../../schema/invitations.schema';
-import type { AcceptInvitationResponse } from './interfaces/acceptInvitationResponse';
+import type { CancelInvitationResponse } from './interfaces/cancelInvitationResponse';
 
 @Injectable()
-export class AcceptInvitationService {
+export class CancelInvitationService {
   constructor(
     @InjectModel(Campaign.name) private campaignModel: Model<CampaignDocument>,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
@@ -24,37 +24,39 @@ export class AcceptInvitationService {
   async execute(
     invitationId: string,
     userId: string,
-  ): Promise<AcceptInvitationResponse> {
+  ): Promise<CancelInvitationResponse> {
     const invitation = await this.invitationModel
-      .findOne({
-        _id: invitationId,
-        invitatedId: userId,
-        state: 'pending',
-      })
+      .findById(invitationId)
       .lean()
       .exec();
 
-    if (!invitation) {
+    if (!invitation || invitation.state !== 'pending') {
       throw new BadRequestException('Invitation not found or already handled');
     }
 
-    const campaign = await this.campaignModel.findByIdAndUpdate(
-      invitation.campaignId,
-      { $addToSet: { players: userId } },
-      { returnDocument: 'after' },
-    );
+    const campaign = await this.campaignModel.findById(invitation.campaignId);
 
     if (!campaign) {
       throw new BadRequestException('Campaign not found');
     }
 
-    await this.invitationModel.findByIdAndUpdate(invitationId, {
-      state: 'accepted',
-    });
+    if (campaign.gamemaster.toString() === userId) {
+      await this.invitationModel.deleteOne({ _id: invitationId });
 
-    return {
-      id: invitation._id.toString(),
-      campaignId: invitation.campaignId,
-    };
+      await this.campaignModel.findByIdAndUpdate(
+        invitation.campaignId,
+        { $addToSet: { players: userId } },
+        { returnDocument: 'after' },
+      );
+
+      return {
+        id: invitation._id.toString(),
+        campaignId: invitation.campaignId,
+      };
+    } else {
+      throw new BadRequestException(
+        'Only the gamemaster can cancel the invitation',
+      );
+    }
   }
 }

@@ -30,7 +30,7 @@ export class AddUserService {
     const campaign = await this.campaignModel.findByIdAndUpdate(
       dto.campaignId,
       { $addToSet: { players: dto.playerId } },
-      { new: true },
+      { returnDocument: 'after' },
     );
 
     if (!campaign) {

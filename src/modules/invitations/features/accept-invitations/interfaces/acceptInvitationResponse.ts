@@ -1,4 +1,4 @@
-export interface GetInvitationResponse {
+export interface AcceptInvitationResponse {
   id: string;
   campaignId: string;
 }
