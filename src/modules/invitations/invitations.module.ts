@@ -16,6 +16,8 @@ import {
   GetInvitationService,
   InvitationsController,
   SendInvitationService,
+  RejectInvitationService,
+  RejectInvitationController,
 } from './features';
 
 @Module({
@@ -31,12 +33,14 @@ import {
     GetInvitationController,
     AcceptInvitationController,
     CancelInvitationController,
+    RejectInvitationController,
   ],
   providers: [
     SendInvitationService,
     GetInvitationService,
     AcceptInvitationService,
     CancelInvitationService,
+    RejectInvitationService,
   ],
 })
 export class InvitationsModule {}
