@@ -8,7 +8,7 @@ export class Character {
   @Prop({ required: true, trim: true })
   userId!: string;
 
-  @Prop({ required: true, trim: true })
+  @Prop({ trim: true })
   campaignId!: string;
   @Prop({ required: true, trim: true })
   name!: string;
@@ -27,6 +27,14 @@ export class Character {
   @Prop({ trim: true })
   currentState!: string;
   @Prop({
+    type: {
+      strength: { type: Number, default: 0 },
+      dexterity: { type: Number, default: 0 },
+      constitution: { type: Number, default: 0 },
+      intelligence: { type: Number, default: 0 },
+      wisdom: { type: Number, default: 0 },
+      charisma: { type: Number, default: 0 },
+    },
     default: {
       strength: 0,
       dexterity: 0,
@@ -52,6 +60,8 @@ export class Character {
   history!: string;
   @Prop({ trim: true })
   objective!: string;
+  createdAt!: Date;
+  updatedAt!: Date;
 }
 
 export const CharacterSchema = SchemaFactory.createForClass(Character);
