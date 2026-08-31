@@ -13,15 +13,31 @@ export class GetCampaignsService {
   async execute(userId: string): Promise<GetCampaignsResponse[]> {
     const [gameMasterCampaigns, playerCampaigns] = await Promise.all([
       this.campaignModel
-        .find({ gamemaster: userId }, { _id: 1, name: 1, description: 1 })
+        .find(
+          { gamemaster: userId },
+          { _id: 1, name: 1, description: 1, createdAt: 1 },
+        )
         .lean<
-          { _id: { toString(): string }; name: string; description: string }[]
+          {
+            _id: { toString(): string };
+            name: string;
+            description: string;
+            createdAt: Date;
+          }[]
         >()
         .exec(),
       this.campaignModel
-        .find({ players: userId }, { _id: 1, name: 1, description: 1 })
+        .find(
+          { players: userId },
+          { _id: 1, name: 1, description: 1, createdAt: 1 },
+        )
         .lean<
-          { _id: { toString(): string }; name: string; description: string }[]
+          {
+            _id: { toString(): string };
+            name: string;
+            description: string;
+            createdAt: Date;
+          }[]
         >()
         .exec(),
     ]);
@@ -34,6 +50,7 @@ export class GetCampaignsService {
         name: campaign.name,
         description: campaign.description,
         isGameMaster: false,
+        createdAt: campaign.createdAt,
       });
     }
 
@@ -43,6 +60,7 @@ export class GetCampaignsService {
         name: campaign.name,
         description: campaign.description,
         isGameMaster: true,
+        createdAt: campaign.createdAt,
       });
     }
 

@@ -3,4 +3,5 @@ export interface GetCampaignsResponse {
   name: string;
   description: string;
   isGameMaster: boolean;
+  createdAt: Date;
 }
