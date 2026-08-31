@@ -23,7 +23,7 @@ export class GetInvitationService {
 
   async execute(invitatedId: string): Promise<GetInvitationResponse[]> {
     const invitations = await this.invitationModel
-      .find({ invitatedId })
+      .find({ invitatedId, state: 'pending' })
       .select('campaignId')
       .lean();
 

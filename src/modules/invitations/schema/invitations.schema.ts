@@ -11,7 +11,7 @@ export class Invitation {
   @Prop({ required: true, trim: true })
   invitatedId!: string;
   @Prop({ required: true, default: 'pending' })
-  state!: 'pending' | 'accepted' | 'declined';
+  state!: 'pending' | 'accepted' | 'rejected' | 'declined';
 
   @Prop({ required: true })
   sendedByGamemaster!: boolean;
