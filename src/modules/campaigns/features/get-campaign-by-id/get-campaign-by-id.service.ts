@@ -23,12 +23,19 @@ export class GetCampaignByIdService {
     userId: string,
   ): Promise<GetCampaignByIdResponse> {
     const campaign = await this.campaignModel
-      .findById(campaignId, { _id: 1, name: 1, description: 1, gamemaster: 1 })
+      .findById(campaignId, {
+        _id: 1,
+        name: 1,
+        description: 1,
+        gamemaster: 1,
+        players: 1,
+      })
       .lean<{
         _id: { toString(): string };
         name: string;
         description: string;
         gamemaster: { toString(): string } | string;
+        players: string[];
       }>()
       .exec();
 
@@ -45,10 +52,22 @@ export class GetCampaignByIdService {
       >()
       .exec();
 
+    const visibleInvitations = invitations.filter(
+      (invitation) => invitation.state !== 'accepted',
+    );
     const invitedUserIds = invitations
+      .filter((invitation) => invitation.state !== 'accepted')
       .map((inv) => inv.invitatedId)
       .filter((value) => value && value.length === 24)
       .map((value) => value.toString());
+
+    const playerIds = campaign.players.map((playerId) => playerId.toString());
+    const playerUsers = playerIds.length
+      ? await this.userModel
+          .find({ _id: { $in: playerIds } }, { _id: 1, username: 1 })
+          .lean<Array<{ _id: { toString(): string }; username: string }>>()
+          .exec()
+      : [];
 
     const invitedUsers = invitedUserIds.length
       ? await this.userModel
@@ -60,16 +79,23 @@ export class GetCampaignByIdService {
     const userById = new Map(
       invitedUsers.map((user) => [user._id.toString(), user.username]),
     );
+    const usernameByPlayerId = new Map(
+      playerUsers.map((user) => [user._id.toString(), user.username]),
+    );
 
     return {
       campaignId: campaign._id.toString(),
       name: campaign.name,
       description: campaign.description,
       isGameMaster: campaign.gamemaster.toString() === userId,
-      invitations: invitations.map((inv) => ({
+      invitations: visibleInvitations.map((inv) => ({
         invitationId: inv._id.toString(),
         username: userById.get(inv.invitatedId.toString()) ?? inv.invitatedId,
         state: inv.state,
+      })),
+      players: playerIds.map((playerId) => ({
+        playerId,
+        username: usernameByPlayerId.get(playerId) ?? playerId,
       })),
     };
   }
