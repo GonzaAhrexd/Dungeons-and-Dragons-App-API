@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { JWT_SECRET } from '@/config/envs';
+import { JWT_ACCESS_SECRET } from '@/config/envs';
 
 type JwtUserPayload = {
   sub: string;
@@ -24,7 +24,11 @@ export class JwtAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<RequestWithUserId>();
     const path = (request.originalUrl ?? request.url ?? '').split('?')[0];
 
-    if (path === '/api/auth/login' || path === '/api/auth/register') {
+    if (
+      path === '/api/auth/login' ||
+      path === '/api/auth/register' ||
+      path === '/api/auth/refresh'
+    ) {
       return true;
     }
     const authorization = request.headers.authorization;
@@ -36,7 +40,7 @@ export class JwtAuthGuard implements CanActivate {
     const payload = this.jwtService.verify<JwtUserPayload>(
       authorization.slice(7),
       {
-        secret: JWT_SECRET,
+        secret: JWT_ACCESS_SECRET,
       },
     );
 

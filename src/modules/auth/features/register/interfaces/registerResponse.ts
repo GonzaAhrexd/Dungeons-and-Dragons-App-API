@@ -1,5 +1,6 @@
 export interface RegisterResponse {
   id: string;
   username: string;
-  token: string;
+  access_token: string;
+  refresh_token: string;
 }

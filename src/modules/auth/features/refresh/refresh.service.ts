@@ -4,27 +4,35 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User, UserDocument } from '../../schema/user.schema';
-import { LoginDto } from './login.dto';
+import { RefreshDto } from './refresh.dto';
 import { JWT_REFRESH_SECRET } from '../../../../config/envs';
+import { RefreshResponse } from './interfaces/refreshResponse';
+
+type RefreshPayload = { sub: string; username: string };
 
 @Injectable()
-export class LoginService {
+export class RefreshService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private jwtService: JwtService,
   ) {}
 
-  async execute(dto: LoginDto) {
-    const user = await this.userModel.findOne({ username: dto.username });
-
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+  async execute(dto: RefreshDto): Promise<RefreshResponse> {
+    let decoded: RefreshPayload;
+    try {
+      decoded = this.jwtService.verify<RefreshPayload>(dto.refresh_token, {
+        secret: JWT_REFRESH_SECRET,
+      });
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
     }
 
-    const isPasswordValid = await bcrypt.compare(dto.password, user.password);
-
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+    const user = await this.userModel.findById(decoded.sub);
+    if (
+      !user?.refreshToken ||
+      !(await bcrypt.compare(dto.refresh_token, user.refreshToken))
+    ) {
+      throw new UnauthorizedException('Invalid refresh token');
     }
 
     const payload = { sub: user.id, username: user.username };
@@ -37,11 +45,6 @@ export class LoginService {
     user.refreshToken = await bcrypt.hash(refresh_token, 10);
     await user.save();
 
-    return {
-      id: user.id,
-      username: user.username,
-      access_token,
-      refresh_token,
-    };
+    return { access_token, refresh_token };
   }
 }

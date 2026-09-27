@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
-import { JWT_SECRET } from '@/config/envs';
+import { JWT_ACCESS_SECRET } from '@/config/envs';
 // Schemas
 import { Campaign, CampaignSchema } from './schema/campaigns.schema';
 import { User, UserSchema } from '@/modules/auth/schema/user.schema';
@@ -30,7 +30,7 @@ import {
 @Module({
   imports: [
     JwtModule.register({
-      secret: JWT_SECRET,
+      secret: JWT_ACCESS_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
     MongooseModule.forFeature([

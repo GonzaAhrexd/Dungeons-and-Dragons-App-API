@@ -4,7 +4,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CampaignsModule } from './modules/campaigns/campaigns.module';
 import { CharactersModule } from './modules/characters/characters.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { JWT_SECRET, MONGODB_URI } from './config/envs';
+import { JWT_ACCESS_SECRET, MONGODB_URI } from './config/envs';
 import { HealthModule } from './modules/health/health.module';
 import { JwtAuthGuard } from './modules/campaigns/features/shared/campaign-auth.guard';
 import { InvitationsModule } from './modules/invitations/invitations.module';
@@ -12,7 +12,7 @@ import { InvitationsModule } from './modules/invitations/invitations.module';
   imports: [
     MongooseModule.forRoot(MONGODB_URI),
     JwtModule.register({
-      secret: JWT_SECRET,
+      secret: JWT_ACCESS_SECRET,
       signOptions: { expiresIn: '30d' },
     }),
     AuthModule,
