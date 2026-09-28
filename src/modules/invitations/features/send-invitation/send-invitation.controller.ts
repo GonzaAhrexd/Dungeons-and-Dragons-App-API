@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Req } from '@nestjs/common';
 import { SendInvitationService } from './send-invitation.service';
 import { SendInvitationDto } from './send-invitation.dto';
-import type { RequestWithUserId } from '../../../campaigns/features/shared/campaign-auth.guard';
+import type { RequestWithUserId } from '../../../../common/guards/jwt-auth.guard';
 
 @Controller('invitations')
 export class InvitationsController {

@@ -17,7 +17,7 @@ export * from './get-campaigns/get-campaigns.service';
 export * from './remove-user/remove-user.controller';
 export * from './remove-user/remove-user.dto';
 export * from './remove-user/remove-user.service';
-export * from './shared/campaign-auth.guard';
+export * from '../../../common/guards/jwt-auth.guard';
 export * from './add-user/interfaces/addUserResponse';
 export * from './create-campaign/interfaces/createCampaignsResponse';
 export * from './delete-campaign/interfaces/deleteCampaignResponse';

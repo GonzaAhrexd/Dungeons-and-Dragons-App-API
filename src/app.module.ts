@@ -6,7 +6,7 @@ import { CharactersModule } from './modules/characters/characters.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JWT_ACCESS_SECRET, MONGODB_URI } from './config/envs';
 import { HealthModule } from './modules/health/health.module';
-import { JwtAuthGuard } from './modules/campaigns/features/shared/campaign-auth.guard';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { InvitationsModule } from './modules/invitations/invitations.module';
 @Module({
   imports: [

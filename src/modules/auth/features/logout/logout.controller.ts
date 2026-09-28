@@ -1,6 +1,6 @@
 import { Controller, Post, Req } from '@nestjs/common';
 import { LogoutService } from './logout.service';
-import type { RequestWithUserId } from '@/modules/campaigns/features/shared/campaign-auth.guard';
+import type { RequestWithUserId } from '@/common/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class LogoutController {

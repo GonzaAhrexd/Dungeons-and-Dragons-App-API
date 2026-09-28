@@ -1,7 +1,7 @@
 import { Controller, Get, Req } from '@nestjs/common';
 import { GetCampaignsService } from './get-campaigns.service';
 import type { GetCampaignsResponse } from './interfaces/getCampaignsResponse';
-import type { RequestWithUserId } from '../shared/campaign-auth.guard';
+import type { RequestWithUserId } from '../../../../common/guards/jwt-auth.guard';
 
 @Controller('campaigns')
 export class GetCampaignsController {

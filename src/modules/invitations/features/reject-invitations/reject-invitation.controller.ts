@@ -1,6 +1,6 @@
 import { Controller, Param, Patch, Req } from '@nestjs/common';
 import { RejectInvitationService } from './reject-invitation.service';
-import type { RequestWithUserId } from '../../../campaigns/features/shared/campaign-auth.guard';
+import type { RequestWithUserId } from '../../../../common/guards/jwt-auth.guard';
 
 @Controller('invitations')
 export class RejectInvitationController {

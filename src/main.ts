@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
-import { JwtAuthGuard } from './modules/campaigns/features/shared/campaign-auth.guard';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common'; // <-- 1. Importar esto
 

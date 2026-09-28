@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Req } from '@nestjs/common';
-import type { RequestWithUserId } from '../../../campaigns/features/shared/campaign-auth.guard';
+import type { RequestWithUserId } from '../../../../common/guards/jwt-auth.guard';
 import { CreateCharacterService } from './create-character.service';
 import { CreateCharacterDto } from './create-character.dto';
 

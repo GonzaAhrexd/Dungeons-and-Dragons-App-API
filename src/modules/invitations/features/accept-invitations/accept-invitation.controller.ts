@@ -1,6 +1,6 @@
 import { Controller, Param, Put, Req } from '@nestjs/common';
 import { AcceptInvitationService } from './accept-invitation.service';
-import type { RequestWithUserId } from '../../../campaigns/features/shared/campaign-auth.guard';
+import type { RequestWithUserId } from '../../../../common/guards/jwt-auth.guard';
 
 @Controller('invitations')
 export class AcceptInvitationController {
