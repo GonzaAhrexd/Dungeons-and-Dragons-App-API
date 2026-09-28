@@ -12,6 +12,8 @@ export class Campaign {
   description!: string;
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   gamemaster!: Types.ObjectId;
+  @Prop({ type: Boolean, default: true })
+  isActive!: boolean;
 
   @Prop({ trim: true })
   players!: string[];
