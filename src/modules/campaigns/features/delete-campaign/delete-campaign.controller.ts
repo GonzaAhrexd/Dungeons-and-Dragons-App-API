@@ -6,7 +6,7 @@ import { DeleteCampaignService } from './delete-campaign.service';
 export class DeleteCampaignController {
   constructor(private readonly deleteCampaignService: DeleteCampaignService) {}
 
-  @Delete('delete-campaign')
+  @Delete()
   async deleteCampaign(@Body() dto: DeleteCampaignDto) {
     return this.deleteCampaignService.execute(dto);
   }

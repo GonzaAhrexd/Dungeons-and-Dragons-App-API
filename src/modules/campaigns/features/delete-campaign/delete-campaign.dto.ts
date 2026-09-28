@@ -5,4 +5,6 @@ export class DeleteCampaignDto {
   @ApiProperty()
   @IsMongoId()
   campaignId!: string;
+  @ApiProperty()
+  campaignName!: string;
 }

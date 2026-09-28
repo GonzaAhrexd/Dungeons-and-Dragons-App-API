@@ -12,12 +12,16 @@ export class DeleteCampaignService {
   ) {}
 
   async execute(dto: DeleteCampaignDto): Promise<DeleteCampaignResponse> {
-    const campaignExists = await this.campaignModel.exists({
+    const campaignExists = await this.campaignModel.findOne({
       _id: dto.campaignId,
     });
 
     if (!campaignExists) {
       throw new BadRequestException('Campaign not found');
+    }
+
+    if (campaignExists.name !== dto.campaignName) {
+      throw new BadRequestException('Campaign name does not match');
     }
 
     const campaign = await this.campaignModel.findByIdAndDelete(dto.campaignId);
