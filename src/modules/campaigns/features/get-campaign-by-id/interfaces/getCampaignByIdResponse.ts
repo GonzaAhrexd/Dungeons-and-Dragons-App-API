@@ -12,6 +12,7 @@ export interface GetCampaignByIdResponse {
   name: string;
   description: string;
   isGameMaster: boolean;
+  isActive: boolean;
   invitations: Invitations[];
   players: Players[];
 }

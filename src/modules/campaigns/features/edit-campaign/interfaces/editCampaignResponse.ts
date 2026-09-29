@@ -3,6 +3,7 @@ export interface EditCampaignResponse {
   name: string;
   description: string;
   gamemaster: string;
+  isActive: boolean;
   players: string[];
   createdAt: Date;
   updatedAt: Date;

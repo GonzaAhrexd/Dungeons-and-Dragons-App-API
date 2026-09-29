@@ -28,6 +28,7 @@ export class GetCampaignByIdService {
         name: 1,
         description: 1,
         gamemaster: 1,
+        isActive: 1,
         players: 1,
       })
       .lean<{
@@ -35,6 +36,7 @@ export class GetCampaignByIdService {
         name: string;
         description: string;
         gamemaster: { toString(): string } | string;
+        isActive: boolean;
         players: string[];
       }>()
       .exec();
@@ -88,6 +90,7 @@ export class GetCampaignByIdService {
       name: campaign.name,
       description: campaign.description,
       isGameMaster: campaign.gamemaster.toString() === userId,
+      isActive: campaign.isActive,
       invitations: visibleInvitations.map((inv) => ({
         invitationId: inv._id.toString(),
         username: userById.get(inv.invitatedId.toString()) ?? inv.invitatedId,

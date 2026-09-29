@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class EditNameDto {
   @ApiProperty()
@@ -12,4 +12,8 @@ export class EditNameDto {
   @MinLength(3)
   @IsOptional()
   description?: string;
+  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
 }

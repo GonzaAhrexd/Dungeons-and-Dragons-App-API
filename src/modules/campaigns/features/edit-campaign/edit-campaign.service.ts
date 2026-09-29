@@ -22,7 +22,13 @@ export class EditCampaignService {
 
     const campaign = await this.campaignModel.findByIdAndUpdate(
       id,
-      { $set: { name: dto.name, description: dto.description } },
+      {
+        $set: {
+          name: dto.name,
+          description: dto.description,
+          isActive: dto.isActive,
+        },
+      },
       { returnDocument: 'after' },
     );
 
@@ -34,6 +40,7 @@ export class EditCampaignService {
       _id,
       name,
       description,
+      isActive,
       gamemaster,
       players,
       createdAt,
@@ -44,6 +51,7 @@ export class EditCampaignService {
       id: _id.toString(),
       name,
       description,
+      isActive,
       gamemaster: gamemaster.toString(),
       players,
       createdAt,
