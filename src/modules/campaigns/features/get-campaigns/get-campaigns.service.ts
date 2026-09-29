@@ -15,13 +15,14 @@ export class GetCampaignsService {
       this.campaignModel
         .find(
           { gamemaster: userId },
-          { _id: 1, name: 1, description: 1, createdAt: 1 },
+          { _id: 1, name: 1, description: 1, isActive: 1, createdAt: 1 },
         )
         .lean<
           {
             _id: { toString(): string };
             name: string;
             description: string;
+            isActive: boolean;
             createdAt: Date;
           }[]
         >()
@@ -36,6 +37,7 @@ export class GetCampaignsService {
             _id: { toString(): string };
             name: string;
             description: string;
+            isActive: boolean;
             createdAt: Date;
           }[]
         >()
@@ -50,6 +52,7 @@ export class GetCampaignsService {
         name: campaign.name,
         description: campaign.description,
         isGameMaster: false,
+        isActive: campaign.isActive,
         createdAt: campaign.createdAt,
       });
     }
@@ -60,6 +63,7 @@ export class GetCampaignsService {
         name: campaign.name,
         description: campaign.description,
         isGameMaster: true,
+        isActive: campaign.isActive,
         createdAt: campaign.createdAt,
       });
     }
