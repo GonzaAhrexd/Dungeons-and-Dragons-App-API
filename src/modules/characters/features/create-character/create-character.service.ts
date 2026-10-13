@@ -33,8 +33,16 @@ export class CreateCharacterService {
       subclass: dto.subclass,
       alignment: dto.alignment,
       level: dto.level,
-      history: dto.history,
+      backstory: dto.backstory,
       objective: dto.objective,
+      attributes: {
+        strength: dto.strength ? dto.strength : 0,
+        dexterity: dto.dexterity ? dto.dexterity : 0,
+        constitution: dto.constitution ? dto.constitution : 0,
+        intelligence: dto.intelligence ? dto.intelligence : 0,
+        wisdom: dto.wisdom ? dto.wisdom : 0,
+        charisma: dto.charisma ? dto.charisma : 0,
+      },
     });
 
     const { _id, userId: ownerId, createdAt, updatedAt } = character.toObject();

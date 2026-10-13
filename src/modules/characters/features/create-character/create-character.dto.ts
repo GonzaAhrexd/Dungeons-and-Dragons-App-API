@@ -15,17 +15,18 @@ export class CreateCharacterDto {
   @IsString()
   @MinLength(3)
   @IsOptional()
+  alignment?: string;
+  @ApiPropertyOptional()
+  @IsString()
+  @MinLength(3)
+  @IsOptional()
   class?: string;
   @ApiPropertyOptional()
   @IsString()
   @MinLength(3)
   @IsOptional()
   subclass?: string;
-  @ApiPropertyOptional()
-  @IsString()
-  @MinLength(3)
-  @IsOptional()
-  alignment?: string;
+
   @ApiPropertyOptional()
   @IsNumber()
   @IsOptional()
@@ -33,9 +34,33 @@ export class CreateCharacterDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  history?: string;
+  backstory?: string;
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
   objective?: string;
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  strength?: number;
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  dexterity?: number;
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  constitution?: number;
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  intelligence?: number;
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  wisdom?: number;
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  charisma?: number;
 }

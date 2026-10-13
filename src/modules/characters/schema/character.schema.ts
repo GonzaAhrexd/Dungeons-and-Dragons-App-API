@@ -57,7 +57,7 @@ export class Character {
   @Prop({ default: [] })
   equipment!: [{ icon: string; name: string; description: string }];
   @Prop({ trim: true })
-  history!: string;
+  backstory!: string;
   @Prop({ trim: true })
   objective!: string;
   createdAt!: Date;
