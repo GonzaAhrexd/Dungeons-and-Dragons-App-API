@@ -5,7 +5,12 @@ import {
   Character,
   CharacterSchema,
 } from '@/modules/characters/schema/character.schema';
-import { CharacterController, CreateCharacterService } from './features';
+import {
+  CharacterController,
+  CreateCharacterService,
+  GetMyCharactersController,
+  GetMyCharactersService,
+} from './features';
 
 @Module({
   imports: [
@@ -14,7 +19,7 @@ import { CharacterController, CreateCharacterService } from './features';
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  controllers: [CharacterController],
-  providers: [CreateCharacterService],
+  controllers: [CharacterController, GetMyCharactersController],
+  providers: [CreateCharacterService, GetMyCharactersService],
 })
 export class CharactersModule {}
