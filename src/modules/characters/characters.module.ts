@@ -8,6 +8,12 @@ import {
 import {
   CharacterController,
   CreateCharacterService,
+  DeleteCharacterController,
+  DeleteCharacterService,
+  EditCharacterController,
+  EditCharacterService,
+  GetCharacterByIdController,
+  GetCharacterByIdService,
   GetMyCharactersController,
   GetMyCharactersService,
 } from './features';
@@ -19,7 +25,19 @@ import {
       { name: User.name, schema: UserSchema },
     ]),
   ],
-  controllers: [CharacterController, GetMyCharactersController],
-  providers: [CreateCharacterService, GetMyCharactersService],
+  controllers: [
+    CharacterController,
+    GetMyCharactersController,
+    GetCharacterByIdController,
+    EditCharacterController,
+    DeleteCharacterController,
+  ],
+  providers: [
+    CreateCharacterService,
+    GetMyCharactersService,
+    GetCharacterByIdService,
+    EditCharacterService,
+    DeleteCharacterService,
+  ],
 })
 export class CharactersModule {}
