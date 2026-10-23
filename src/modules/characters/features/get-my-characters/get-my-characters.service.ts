@@ -27,6 +27,14 @@ export class GetMyCharactersService {
       class: character.class,
       subclass: character.subclass,
       level: character.level,
+      attributes: {
+        strength: character.attributes.strength,
+        dexterity: character.attributes.dexterity,
+        constitution: character.attributes.constitution,
+        intelligence: character.attributes.intelligence,
+        wisdom: character.attributes.wisdom,
+        charisma: character.attributes.charisma,
+      },
       createdAt: character.createdAt,
       updatedAt: character.updatedAt,
     }));
