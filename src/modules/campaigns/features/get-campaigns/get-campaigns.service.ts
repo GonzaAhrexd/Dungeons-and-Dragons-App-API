@@ -11,63 +11,39 @@ export class GetCampaignsService {
   ) {}
 
   async execute(userId: string): Promise<GetCampaignsResponse[]> {
-    const [gameMasterCampaigns, playerCampaigns] = await Promise.all([
-      this.campaignModel
-        .find(
-          { gamemaster: userId },
-          { _id: 1, name: 1, description: 1, isActive: 1, createdAt: 1 },
-        )
-        .lean<
-          {
-            _id: { toString(): string };
-            name: string;
-            description: string;
-            isActive: boolean;
-            createdAt: Date;
-          }[]
-        >()
-        .exec(),
-      this.campaignModel
-        .find(
-          { players: userId },
-          { _id: 1, name: 1, description: 1, createdAt: 1 },
-        )
-        .lean<
-          {
-            _id: { toString(): string };
-            name: string;
-            description: string;
-            isActive: boolean;
-            createdAt: Date;
-          }[]
-        >()
-        .exec(),
-    ]);
+    const campaigns = await this.campaignModel
+      .find(
+        {
+          $or: [{ gamemaster: userId }, { players: userId }],
+        },
+        {
+          _id: 1,
+          name: 1,
+          description: 1,
+          gamemaster: 1,
+          isActive: 1,
+          createdAt: 1,
+        },
+      )
+      .lean<
+        {
+          _id: { toString(): string };
+          name: string;
+          description: string;
+          gamemaster: { toString(): string } | string;
+          isActive: boolean;
+          createdAt: Date;
+        }[]
+      >()
+      .exec();
 
-    const campaignsById = new Map<string, GetCampaignsResponse>();
-
-    for (const campaign of playerCampaigns) {
-      campaignsById.set(campaign._id.toString(), {
-        campaignId: campaign._id.toString(),
-        name: campaign.name,
-        description: campaign.description,
-        isGameMaster: false,
-        isActive: campaign.isActive,
-        createdAt: campaign.createdAt,
-      });
-    }
-
-    for (const campaign of gameMasterCampaigns) {
-      campaignsById.set(campaign._id.toString(), {
-        campaignId: campaign._id.toString(),
-        name: campaign.name,
-        description: campaign.description,
-        isGameMaster: true,
-        isActive: campaign.isActive,
-        createdAt: campaign.createdAt,
-      });
-    }
-
-    return [...campaignsById.values()];
+    return campaigns.map((campaign) => ({
+      campaignId: campaign._id.toString(),
+      name: campaign.name,
+      description: campaign.description,
+      isGameMaster: campaign.gamemaster.toString() === userId,
+      isActive: campaign.isActive,
+      createdAt: campaign.createdAt,
+    }));
   }
 }
