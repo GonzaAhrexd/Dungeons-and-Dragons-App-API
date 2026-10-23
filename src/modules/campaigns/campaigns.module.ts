@@ -6,6 +6,10 @@ import { JWT_ACCESS_SECRET } from '@/config/envs';
 import { Campaign, CampaignSchema } from './schema/campaigns.schema';
 import { User, UserSchema } from '@/modules/auth/schema/user.schema';
 import {
+  Character,
+  CharacterSchema,
+} from '@/modules/characters/schema/character.schema';
+import {
   Invitation,
   InvitationSchema,
 } from '@/modules/invitations/schema/invitations.schema';
@@ -26,6 +30,8 @@ import {
   CampaignController,
   CreateCampaignService,
   JwtAuthGuard,
+  SelectCharacterController,
+  SelectCharacterService,
 } from './features';
 @Module({
   imports: [
@@ -35,6 +41,7 @@ import {
     }),
     MongooseModule.forFeature([
       { name: Campaign.name, schema: CampaignSchema },
+      { name: Character.name, schema: CharacterSchema },
       { name: User.name, schema: UserSchema },
       { name: Invitation.name, schema: InvitationSchema },
     ]),
@@ -47,6 +54,7 @@ import {
     DeleteCampaignController,
     GetCampaignsController,
     GetCampaignByIdController,
+    SelectCharacterController,
   ],
   providers: [
     CreateCampaignService,
@@ -56,6 +64,7 @@ import {
     DeleteCampaignService,
     GetCampaignsService,
     GetCampaignByIdService,
+    SelectCharacterService,
     JwtAuthGuard,
   ],
 })

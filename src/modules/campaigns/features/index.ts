@@ -25,3 +25,7 @@ export * from './edit-campaign/interfaces/editCampaignResponse';
 export * from './get-campaign-by-id/interfaces/getCampaignByIdResponse';
 export * from './get-campaigns/interfaces/getCampaignsResponse';
 export * from './remove-user/interfaces/removeUserResponse';
+export * from './select-character/select-character.controller';
+export * from './select-character/select-character.dto';
+export * from './select-character/select-character.service';
+export * from './select-character/interfaces/selectCharacterResponse';
